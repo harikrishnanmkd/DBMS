@@ -1,0 +1,39 @@
+EXPERIMENT 1.2 DML COMMANDS 
+
+ a) DML COMMANDS-INSERT
+ 
+1.Insert values in EMPLOYEE table.
+    
+insert into PERSON values(1,'Hari','Palakkad',2001,456789),(2,'Karthik','Perinthalmanna',2001,567820),(3,'Vyshnav','Malappuram',2000,547893);
+Query OK, 3 rows affected (0.06 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from prson;
+ERROR 1146 (42S02): Table 'DBMS.prson' doesn't exist
+mysql> select * from PERSON;
++------+---------+----------------+------+-----------+
+| ssn  | name    | city           | dob  | aadhar_no |
++------+---------+----------------+------+-----------+
+|    1 | Hari    | Palakkad       | 2001 |    456789 |
+|    2 | Karthik | Perinthalmanna | 2001 |    567820 |
+|    3 | Vyshnav | Malappuram     | 2000 |    547893 |
++------+---------+----------------+------+-----------+
+3 rows in set (0.00 sec)
+
+2.Insert values in STUDENT table.
+
+insert into STUDENT values(1,'Hari',21,'ABC House','m'),(2,'Karthik',21,'
+EFG House''m'),(3,'Vyshnav',22,'HIJ House','m'),(4,'Aliya',22,'KIJ House','f');
+ERROR 1136 (21S01): Column count doesn't match value count at row 2
+mysql> insert into STUDENT values(1,'Hari',21,'ABC House','m'),(2,'Karthik',21,'EFG House','m'),(3,'Vyshnav',22,'HIJ House','m'),(4,'Aliya',22,'KIJ House','f');
+
+mysql> select * from STUDENT;
++---------+---------+------+-----------+--------+
+| roll_no | name    | age  | address   | gender |
++---------+---------+------+-----------+--------+
+|       1 | Hari    |   21 | ABC House | m      |
+|       2 | Karthik |   21 | EFG House | m      |
+|       3 | Vyshnav |   22 | HIJ House | m      |
+|       4 | Aliya   |   22 | KIJ House | f      |
++---------+---------+------+-----------+--------+
+4 rows in set (0.00 sec)
