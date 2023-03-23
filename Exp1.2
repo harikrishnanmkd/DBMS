@@ -657,22 +657,6 @@ mysql> select * from invoice_master;
 +--------+---------+------------+
 4 rows in set (0.00 sec)
 
-********************************************************************************************************************************************
-
-7)Delete the first two records of INVOICE_ITEM table its purchase quantity is high.
-
-
-mysql>  DELETE FROM invoice_item  ORDER BY quantity DESC LIMIT 2;
-Query OK, 2 rows affected (0.05 sec)
-
-mysql> select * from invoice_item;
-+--------+------+----------+
-| inv_id | pid  | quantity |
-+--------+------+----------+
-|   1002 |  301 |        2 |
-|   1790 |  432 |        2 |
-+--------+------+----------+
-2 rows in set (0.00 sec)
 
 
 
