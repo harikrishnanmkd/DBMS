@@ -1,0 +1,142 @@
+Exp 1.3 - TCL & DCL Commands
+----------------------------
+
+a)TCL Commands
+
+1.Commit
+
+mysql> SET AUTOCOMMIT=OFF;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from EMPLOYEE;
++------+---------+----------------+------+-----------+
+| ssn  | name    | city           | dob  | aadhar_no |
++------+---------+----------------+------+-----------+
+|    1 | Hari    | Palakkad       | 2001 |    456789 |
+|    2 | Karthik | Perinthalmanna | 2001 |    567820 |
+|    3 | Vyshnav | Malappuram     | 2000 |    547893 |
+|    4 | Minhaj  | Manjeri        | 1999 |    478102 |
++------+---------+----------------+------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE values(5,"Maanas","Kozhikode",2000,232135);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from EMPLOYEE;
++------+---------+----------------+------+-----------+
+| ssn  | name    | city           | dob  | aadhar_no |
++------+---------+----------------+------+-----------+
+|    1 | Hari    | Palakkad       | 2001 |    456789 |
+|    2 | Karthik | Perinthalmanna | 2001 |    567820 |
+|    3 | Vyshnav | Malappuram     | 2000 |    547893 |
+|    4 | Minhaj  | Manjeri        | 1999 |    478102 |
+|    5 | Maanas  | Kozhikode      | 2000 |    232135 |
++------+---------+----------------+------+-----------+
+5 rows in set (0.00 sec)
+
+********************************************************************************************************************************************
+
+2.Rollback
+
+mysql> INSERT INTO EMPLOYEE values(6,"Vishnu","Kochi",2000,232167);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from EMPLOYEE;
++------+---------+----------------+------+-----------+
+| ssn  | name    | city           | dob  | aadhar_no |
++------+---------+----------------+------+-----------+
+|    1 | Hari    | Palakkad       | 2001 |    456789 |
+|    2 | Karthik | Perinthalmanna | 2001 |    567820 |
+|    3 | Vyshnav | Malappuram     | 2000 |    547893 |
+|    4 | Minhaj  | Manjeri        | 1999 |    478102 |
+|    5 | Maanas  | Kozhikode      | 2000 |    232135 |
+|    6 | Vishnu  | Kochi          | 2000 |    232167 |
++------+---------+----------------+------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from EMPLOYEE;
++------+---------+----------------+------+-----------+
+| ssn  | name    | city           | dob  | aadhar_no |
++------+---------+----------------+------+-----------+
+|    1 | Hari    | Palakkad       | 2001 |    456789 |
+|    2 | Karthik | Perinthalmanna | 2001 |    567820 |
+|    3 | Vyshnav | Malappuram     | 2000 |    547893 |
+|    4 | Minhaj  | Manjeri        | 1999 |    478102 |
+|    5 | Maanas  | Kozhikode      | 2000 |    232135 |
++------+---------+----------------+------+-----------+
+5 rows in set (0.00 sec)
+
+********************************************************************************************************************************************
+
+3.Savepoint
+
+mysql> select * from EMPLOYEE;
++------+---------+----------------+------+-----------+
+| ssn  | name    | city           | dob  | aadhar_no |
++------+---------+----------------+------+-----------+
+|    1 | Hari    | Palakkad       | 2001 |    456789 |
+|    2 | Karthik | Perinthalmanna | 2001 |    567820 |
+|    3 | Vyshnav | Malappuram     | 2000 |    547893 |
+|    4 | Minhaj  | Manjeri        | 1999 |    478102 |
+|    5 | Maanas  | Kozhikode      | 2000 |    232135 |
++------+---------+----------------+------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE values(6,"Aswin","Kollam",1999,232160);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint emp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE values(7,"Vishnu","Kochi",2000,235460);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint emp2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE values(8,"Akshay","Alappuzha",2001,287560);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint emp3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from EMPLOYEE;
++------+---------+----------------+------+-----------+
+| ssn  | name    | city           | dob  | aadhar_no |
++------+---------+----------------+------+-----------+
+|    1 | Hari    | Palakkad       | 2001 |    456789 |
+|    2 | Karthik | Perinthalmanna | 2001 |    567820 |
+|    3 | Vyshnav | Malappuram     | 2000 |    547893 |
+|    4 | Minhaj  | Manjeri        | 1999 |    478102 |
+|    5 | Maanas  | Kozhikode      | 2000 |    232135 |
+|    6 | Aswin   | Kollam         | 1999 |    232160 |
+|    7 | Vishnu  | Kochi          | 2000 |    235460 |
+|    8 | Akshay  | Alappuzha      | 2001 |    287560 |
++------+---------+----------------+------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> ROLLBACK TO emp2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from EMPLOYEE;
++------+---------+----------------+------+-----------+
+| ssn  | name    | city           | dob  | aadhar_no |
++------+---------+----------------+------+-----------+
+|    1 | Hari    | Palakkad       | 2001 |    456789 |
+|    2 | Karthik | Perinthalmanna | 2001 |    567820 |
+|    3 | Vyshnav | Malappuram     | 2000 |    547893 |
+|    4 | Minhaj  | Manjeri        | 1999 |    478102 |
+|    5 | Maanas  | Kozhikode      | 2000 |    232135 |
+|    6 | Aswin   | Kollam         | 1999 |    232160 |
+|    7 | Vishnu  | Kochi          | 2000 |    235460 |
++------+---------+----------------+------+-----------+
+7 rows in set (0.01 sec)
+
+*******************************************************************************************************************************************
+*******************************************************************************************************************************************
