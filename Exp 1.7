@@ -1,0 +1,66 @@
+Experiment No - 1.7 Optimizing Database:(Group by,Aggregate Functions)
+
+1.List product name, price except soap on price order.
+
+mysql> select * from product;
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 301 | DARK CHOCALATE       |     1 |
+| 323 | PINPOINT PEN         |    10 |
+| 332 | KABSA KIT            |   150 |
+| 335 | BASUMATHI RISE       |    90 |
+| 339 | AASHIRVAD AATTA 1KG  |    80 |
+| 432 | DIARYMILK SILK       |   135 |
+| 447 | LAYS CHIPS           |     5 |
+| 456 | 7UP 1 LTR            |    90 |
+| 467 | DINNER SET           |   999 |
+| 487 | ONION                |    99 |
+| 643 | FOG BODYSPRAY        |   250 |
+| 743 | CHILLY POWDER        |   145 |
+| 987 | COCONUT OIL 1 LTR    |   180 |
++-----+----------------------+-------+
+13 rows in set (0.00 sec)
+
+mysql> select pname,price from product where pname!='ONION' order by price;
++----------------------+-------+
+| pname                | price |
++----------------------+-------+
+| DARK CHOCALATE       |     1 |
+| LAYS CHIPS           |     5 |
+| PINPOINT PEN         |    10 |
+| AASHIRVAD AATTA 1KG  |    80 |
+| BASUMATHI RISE       |    90 |
+| 7UP 1 LTR            |    90 |
+| DIARYMILK SILK       |   135 |
+| CHILLY POWDER        |   145 |
+| KABSA KIT            |   150 |
+| COCONUT OIL 1 LTR    |   180 |
+| FOG BODYSPRAY        |   250 |
+| DINNER SET           |   999 |
++----------------------+-------+
+12 rows in set (0.00 sec)
+
+2.Find minimum, maximum and average price of products.
+
+mysql> select min(price),max(price),avg(price) from product;
++------------+------------+------------+
+| min(price) | max(price) | avg(price) |
++------------+------------+------------+
+|          1 |        999 |   171.8462 |
++------------+------------+------------+
+1 row in set (0.00 sec)
+
+3.Find number of customers in each city.
+
+mysql> select city,count(id) from customer group by city;
++----------------+-----------+
+| city           | count(id) |
++----------------+-----------+
+| Kozhikode      |         1 |
+| Malappuram     |         2 |
+| Mannarkkad     |         1 |
+| Perinthalmanna |         2 |
+| Wayanad        |         1 |
++----------------+-----------+
+5 rows in set (0.00 sec)
