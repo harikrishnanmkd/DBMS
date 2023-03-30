@@ -15,3 +15,25 @@ mysql> select * from cust_view;
 | Minhaj  |
 +---------+
 4 rows in set (0.02 sec)
+
+2)Create a view for invoice products[cname, , inv_id, product_id, quantity]
+
+mysql> create view invoice_product as select customer.name,invoice_master.inv_id,product.pid,invoice_item.quantity from customer INNER JOIN invoice_master on customer.id=invoice_master.cust_id INNER JOIN invoice_item on invoice_master.inv_id=invoice_item.inv_id INNER JOIN product on product.pid=invoice_item.pid;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from invoice_product;
++---------+--------+-----+----------+
+| name    | inv_id | pid | quantity |
++---------+--------+-----+----------+
+| Hari    |   1002 | 301 |        2 |
+| Hari    |   1002 | 332 |        4 |
+| Hari    |   1002 | 456 |        1 |
+| Hari    |   1176 | 487 |        8 |
+| Vyshnav |   1232 | 301 |       50 |
+| Minhaj  |   1236 | 339 |        3 |
+| Maanas  |   1320 | 987 |        2 |
+| Maanas  |   1320 | 643 |        1 |
+| Hari    |   1790 | 643 |        1 |
+| Hari    |   1790 | 432 |        2 |
++---------+--------+-----+----------+
+10 rows in set (0.02 sec)
