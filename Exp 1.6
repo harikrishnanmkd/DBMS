@@ -1,0 +1,17 @@
+Experiment No:1.6 - Accessing Databases (Views)
+
+1) Create a view for customers who have purchased products.
+
+mysql> create view cust_view as select name from customer where id in(select cust_id from invoice_master);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from cust_view;
++---------+
+| name    |
++---------+
+| Hari    |
+| Vyshnav |
+| Maanas  |
+| Minhaj  |
++---------+
+4 rows in set (0.02 sec)
