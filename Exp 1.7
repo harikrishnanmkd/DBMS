@@ -41,6 +41,8 @@ mysql> select pname,price from product where pname!='ONION' order by price;
 +----------------------+-------+
 12 rows in set (0.00 sec)
 
+*********************************************************************************************************************************************************
+
 2.Find minimum, maximum and average price of products.
 
 mysql> select min(price),max(price),avg(price) from product;
@@ -51,7 +53,24 @@ mysql> select min(price),max(price),avg(price) from product;
 +------------+------------+------------+
 1 row in set (0.00 sec)
 
-3.Find number of customers in each city.
+*********************************************************************************************************************************************************
+
+3.
+mysql> select * from customer;
++-----+---------+----------------------+----------------+------------+
+| id  | name    | address              | city           | ph_no      |
++-----+---------+----------------------+----------------+------------+
+| 100 | Hari    | Kurupputhodyil House | Mannarkkad     | 9025487910 |
+| 101 | Karthik | Kannanthodi House    | Perinthalmanna |       NULL |
+| 102 | Vyshnav | Karthika House       | perinthalmanna | 9539963457 |
+| 103 | Maanas  | Villa House          | Kozhikode      |       NULL |
+| 104 | Minhaj  | Vallyaveetil House   | Malappuram     |       NULL |
+| 105 | Minhaj  | Dreams House         | Malappuram     | 8086909478 |
+| 106 | Aswin   | Aswin House          | Wayanad        | 7854328521 |
++-----+---------+----------------------+----------------+------------+
+7 rows in set (0.00 sec)
+
+--Find number of customers in each city.
 
 mysql> select city,count(id) from customer group by city;
 +----------------+-----------+
@@ -64,3 +83,52 @@ mysql> select city,count(id) from customer group by city;
 | Wayanad        |         1 |
 +----------------+-----------+
 5 rows in set (0.00 sec)
+
+*********************************************************************************************************************************************************
+
+4.
+mysql> select * from customer;
++-----+---------+----------------------+----------------+------------+
+| id  | name    | address              | city           | ph_no      |
++-----+---------+----------------------+----------------+------------+
+| 100 | Hari    | Kurupputhodyil House | Mannarkkad     | 9025487910 |
+| 101 | Karthik | Kannanthodi House    | Perinthalmanna |       NULL |
+| 102 | Vyshnav | Karthika House       | Malappuram     | 9539963457 |
+| 103 | Maanas  | Villa House          | Kozhikode      |       NULL |
+| 104 | Minhaj  | Vallyaveetil House   | Malappuram     |       NULL |
+| 105 | Minhaj  | Dreams House         | Malappuram     | 8086909478 |
+| 106 | Aswin   | Aswin House          | Wayanad        | 7854328521 |
++-----+---------+----------------------+----------------+------------+
+7 rows in set (0.00 sec)
+
+
+--Find number of customers in each city, only include city with more than 2 customers.
+
+mysql> select count(*),city from customer group by city having count(*)>2;
++----------+------------+
+| count(*) | city       |
++----------+------------+
+|        3 | Malappuram |
++----------+------------+
+1 row in set (0.00 sec)
+
+*********************************************************************************************************************************************************
+
+5.Show data as displayed ‘who, where’ Eg: ‘customer1 lives in Kochi’.
+
+mysql> select concat(name, " Lives in ", city) as cust_info from customer;
++---------------------------------+
+| cust_info                       |
++---------------------------------+
+| Hari Lives in Mannarkkad        |
+| Karthik Lives in Perinthalmanna |
+| Vyshnav Lives in Malappuram     |
+| Maanas Lives in Kozhikode       |
+| Minhaj Lives in Malappuram      |
+| Minhaj Lives in Malappuram      |
+| Aswin Lives in Wayanad          |
++---------------------------------+
+7 rows in set (0.00 sec)
+
+
+//completed
