@@ -1,0 +1,73 @@
+Experiment No : 1.8 Optimizing Database:(Joins)
+
+1) List the product name and quantity of invoice items.
+
+mysql> select product.pname,invoice_item.quantity from product INNER JOIN invoice_item on product.pid=invoice_item.pid;
+
++----------------------+----------+
+| pname                | quantity |
++----------------------+----------+
+| DARK CHOCALATE       |        2 |
+| KABSA KIT            |        4 |
+| 7UP 1 LTR            |        1 |
+| ONION                |        8 |
+| DARK CHOCALATE       |       50 |
+| AASHIRVAD AATTA 1KG  |        3 |
+| COCONUT OIL 1 LTR    |        2 |
+| FOG BODYSPRAY        |        1 |
+| FOG BODYSPRAY        |        1 |
+| DIARYMILK SILK       |        2 |
++----------------------+----------+
+10 rows in set (0.02 sec)
+
+********************************************************************************************************************************************
+
+2) Display invoice details of the transaction dated ’2023-01-25’.
+
+mysql> select customer.name,product.pname,product.price,invoice_master.inv_id,invoice_master.inv_date,invoice_item.quantity from customer INNER JOIN invoice_master on customer.id=invoice_master.cust_id INNER JOIN invoice_item on invoice_master.inv_id=invoice_item.inv_id INNER JOIN product on product.pid=invoice_item.pid where inv_date='2023-01-25';
+
++------+-----------------+-------+--------+------------+----------+
+| name | pname           | price | inv_id | inv_date   | quantity |
++------+-----------------+-------+--------+------------+----------+
+| Hari | FOG BODYSPRAY   |   250 |   1790 | 2023-01-25 |        1 |
+| Hari | DIARYMILK SILK  |   135 |   1790 | 2023-01-25 |        2 |
++------+-----------------+-------+--------+------------+----------+
+2 rows in set (0.00 sec)
+
+********************************************************************************************************************************************
+
+3) Display the customer name, product name, invoice date of purchased item ‘DIARYMILK SILK’.
+
+mysql> select customer.name,product.pname,invoice_master.inv_date from customer INNER JOIN invoice_master on customer.id=invoice_master.cust_id INNER JOIN invoice_item on invoice_master.inv_id=invoice_item.inv_id INNER JOIN product on product.pid=invoice_item.pid where pname='DIARYMILK SILK';
+
++------+-----------------+------------+
+| name | pname           | inv_date   |
++------+-----------------+------------+
+| Hari | DIARYMILK SILK  | 2023-01-25 |
++------+-----------------+------------+
+1 row in set (0.00 sec)
+
+********************************************************************************************************************************************
+
+4) Display all customer details and invoice details must include customer has not purchased items.
+
+mysql> select customer.name,product.pname,invoice_master.inv_id,invoice_master.inv_date FROM customer LEFT JOIN invoice_master on  customer.id=invoice_master.cust_id LEFT JOIN invoice_item on invoice_master.inv_id=invoice_item.inv_id LEFT JOIN product on product.pid=invoice_item.pid; 
+
++---------+----------------------+--------+------------+
+| name    | pname                | inv_id | inv_date   |
++---------+----------------------+--------+------------+
+| Hari    | DARK CHOCALATE       |   1002 | 2023-03-22 |
+| Hari    | KABSA KIT            |   1002 | 2023-03-22 |
+| Hari    | 7UP 1 LTR            |   1002 | 2023-03-22 |
+| Hari    | ONION                |   1176 | 2023-04-23 |
+| Vyshnav | DARK CHOCALATE       |   1232 | 2023-02-12 |
+| Minhaj  | AASHIRVAD AATTA 1KG  |   1236 | 2023-01-02 |
+| Maanas  | COCONUT OIL 1 LTR    |   1320 | 2023-02-19 |
+| Maanas  | FOG BODYSPRAY        |   1320 | 2023-02-19 |
+| Hari    | FOG BODYSPRAY        |   1790 | 2023-01-25 |
+| Hari    | DIARYMILK SILK       |   1790 | 2023-01-25 |
+| Karthik | NULL                 |   NULL | NULL       |
+| Minhaj  | NULL                 |   NULL | NULL       |
+| Aswin   | NULL                 |   NULL | NULL       |
++---------+----------------------+--------+------------+
+13 rows in set (0.00 sec)
