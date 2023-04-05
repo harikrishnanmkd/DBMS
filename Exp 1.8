@@ -1,5 +1,71 @@
 Experiment No : 1.8 Optimizing Database:(Joins)
 
+mysql> select * from customer;
++-----+---------+----------------------+----------------+------------+
+| id  | name    | address              | city           | ph_no      |
++-----+---------+----------------------+----------------+------------+
+| 100 | Hari    | Kurupputhodyil House | Mannarkkad     | 9025487910 |
+| 101 | Karthik | Kannanthodi House    | Perinthalmanna |       NULL |
+| 102 | Vyshnav | Karthika House       | Malappuram     | 9539963457 |
+| 103 | Maanas  | Villa House          | Kozhikode      |       NULL |
+| 104 | Minhaj  | Vallyaveetil House   | Malappuram     |       NULL |
+| 105 | Minhaj  | Dreams House         | Malappuram     | 8086909478 |
+| 106 | Aswin   | Aswin House          | Wayanad        | 7854328521 |
++-----+---------+----------------------+----------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from product;
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 301 | DARK CHOCALATE       |     1 |
+| 323 | PINPOINT PEN         |    10 |
+| 332 | KABSA KIT            |   150 |
+| 335 | BASUMATHI RISE       |    90 |
+| 339 | AASHIRVAD AATTA 1KG  |    80 |
+| 432 | DIARYMILK SILK       |   135 |
+| 447 | LAYS CHIPS           |     5 |
+| 456 | 7UP 1 LTR            |    90 |
+| 467 | DINNER SET           |   999 |
+| 487 | ONION                |    99 |
+| 643 | FOG BODYSPRAY        |   250 |
+| 743 | CHILLY POWDER        |   145 |
+| 987 | COCONUT OIL 1 LTR    |   180 |
++-----+----------------------+-------+
+13 rows in set (0.00 sec)
+
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1002 |     100 | 2023-03-22 |
+|   1176 |     100 | 2023-04-23 |
+|   1232 |     102 | 2023-02-12 |
+|   1236 |     104 | 2023-01-02 |
+|   1320 |     103 | 2023-02-19 |
+|   1790 |     100 | 2023-01-25 |
++--------+---------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|   1002 |  301 |        2 |
+|   1002 |  332 |        4 |
+|   1002 |  456 |        1 |
+|   1176 |  487 |        8 |
+|   1232 |  301 |       50 |
+|   1236 |  339 |        3 |
+|   1320 |  987 |        2 |
+|   1320 |  643 |        1 |
+|   1790 |  643 |        1 |
+|   1790 |  432 |        2 |
++--------+------+----------+
+10 rows in set (0.00 sec)
+
+*********************************************************************************************************************************************************
+
 1) List the product name and quantity of invoice items.
 
 mysql> select product.pname,invoice_item.quantity from product INNER JOIN invoice_item on product.pid=invoice_item.pid;
@@ -20,7 +86,7 @@ mysql> select product.pname,invoice_item.quantity from product INNER JOIN invoic
 +----------------------+----------+
 10 rows in set (0.02 sec)
 
-********************************************************************************************************************************************
+*********************************************************************************************************************************************************
 
 2) Display invoice details of the transaction dated ’2023-01-25’.
 
@@ -34,7 +100,7 @@ mysql> select customer.name,product.pname,product.price,invoice_master.inv_id,in
 +------+-----------------+-------+--------+------------+----------+
 2 rows in set (0.00 sec)
 
-********************************************************************************************************************************************
+*********************************************************************************************************************************************************
 
 3) Display the customer name, product name, invoice date of purchased item ‘DIARYMILK SILK’.
 
@@ -47,11 +113,11 @@ mysql> select customer.name,product.pname,invoice_master.inv_date from customer 
 +------+-----------------+------------+
 1 row in set (0.00 sec)
 
-********************************************************************************************************************************************
+*********************************************************************************************************************************************************
 
 4) Display all customer details and invoice details must include customer has not purchased items.
 
-mysql> select customer.name,product.pname,invoice_master.inv_id,invoice_master.inv_date FROM customer LEFT JOIN invoice_master on  customer.id=invoice_master.cust_id LEFT JOIN invoice_item on invoice_master.inv_id=invoice_item.inv_id LEFT JOIN product on product.pid=invoice_item.pid; 
+mysql> select customer.name,product.pname,invoice_master.inv_id,invoice_master.inv_date FROM customer LEFT JOIN invoice_master on customer.id=invoice_master.cust_id LEFT JOIN invoice_item on invoice_master.inv_id=invoice_item.inv_id LEFT JOIN product on product.pid=invoice_item.pid; 
 
 +---------+----------------------+--------+------------+
 | name    | pname                | inv_id | inv_date   |
@@ -71,3 +137,5 @@ mysql> select customer.name,product.pname,invoice_master.inv_id,invoice_master.i
 | Aswin   | NULL                 |   NULL | NULL       |
 +---------+----------------------+--------+------------+
 13 rows in set (0.00 sec)
+
+//completed
