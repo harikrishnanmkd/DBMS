@@ -129,20 +129,16 @@ mysql> select * from customer where ph_no is null and city="Kozhikode";
 
 4.List the product names if it finds any records in the invoice items table has quantity =3 (use special operators)
 
-mysql> select pname from product where pid in(select pid from invoice_item); //WRONG QUERY
+
+mysql> select pname from product where pid in(select pid from invoice_item where quantity=3);
 +----------------------+
 | pname                |
 +----------------------+
-| DARK CHOCALATE       |
-| KABSA KIT            |
 | AASHIRVAD AATTA 1KG  |
-| DIARYMILK SILK       |
-| 7UP 1 LTR            |
-| ONION                |
-| FOG BODYSPRAY        |
-| COCONUT OIL 1 LTR    |
 +----------------------+
-8 rows in set (0.01 sec)
+1 row in set (0.02 sec)
+
+
 
 //completed
-//RESUBMIT
+
