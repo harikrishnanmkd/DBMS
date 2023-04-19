@@ -109,5 +109,29 @@ Query OK, 0 rows affected (0.00 sec)
 
 3.Create a procedure to display invoice details of a particular customer.
 
+mysql> delimiter //
+mysql> create procedure invdetail(a varchar(30))
+    -> Begin
+    -> select customer.name,invoice_master.*,product.pname,invoice_item.pid,invoice_item.quantity from invoice_item inner join invoice_master on invoice_master.inv_id=invoice_item.inv_id inner join product on product.pid=invoice_item.pid inner join customer on customer.id=invoice_master.cust_id where customer.name=a;
+    -> End
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call invdetail('Hari')
+    -> //
++------+--------+---------+------------+-----------------+------+----------+
+| name | inv_id | cust_id | inv_date   | pname           | pid  | quantity |
++------+--------+---------+------------+-----------------+------+----------+
+| Hari |   1002 |     100 | 2023-03-22 | DARK CHOCALATE  |  301 |        2 |
+| Hari |   1002 |     100 | 2023-03-22 | KABSA KIT       |  332 |        4 |
+| Hari |   1002 |     100 | 2023-03-22 | 7UP 1 LTR       |  456 |        1 |
+| Hari |   1176 |     100 | 2023-04-23 | ONION           |  487 |        8 |
+| Hari |   1790 |     100 | 2023-01-25 | FOG BODYSPRAY   |  643 |        1 |
+| Hari |   1790 |     100 | 2023-01-25 | DIARYMILK SILK  |  432 |        2 |
++------+--------+---------+------------+-----------------+------+----------+
+6 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
 
 
