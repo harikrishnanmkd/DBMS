@@ -1,0 +1,44 @@
+EXPERIMENT NO: 2.2	-PL/SQL PROGRAMS – FUNCTIONS
+
+1.Create a function to calculate price_range(low, medium, high) of each product. If price<=10 indicate as low, upto 50 indicate as medium, and above as high.
+
+mysql> delimiter //
+mysql> create function pricestate(price int) returns varchar(10)
+    -> deterministic
+    ->  begin
+    -> declare state varchar(10);
+    -> if price <=10 then
+    -> set state ='low';
+    -> elseif price<=50 then
+    -> set state ='medium';
+    ->  elseif price>50 then
+    ->  set state='high';
+    -> end if;
+    ->  return(state);
+    -> end
+    -> //
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> select pname,price,pricestate(price) as 'state' from product;
+    -> //
++----------------------+-------+--------+
+| pname                | price | state  |
++----------------------+-------+--------+
+| DARK CHOCALATE       |     6 | low    |
+| PINPOINT PEN         |    15 | medium |
+| KABSA KIT            |   155 | high   |
+| BASUMATHI RISE       |    95 | high   |
+| AASHIRVAD AATTA 1KG  |    85 | high   |
+| DIARYMILK SILK       |   140 | high   |
+| LAYS CHIPS           |    10 | low    |
+| 7UP 1 LTR            |    95 | high   |
+| DINNER SET           |  1004 | high   |
+| ONION                |   104 | high   |
+| FOG BODYSPRAY        |   255 | high   |
+| CHILLY POWDER        |   150 | high   |
+| COCONUT OIL 1 LTR    |   185 | high   |
++----------------------+-------+--------+
+13 rows in set (0.00 sec)
+
+//completed
+
