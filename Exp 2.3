@@ -1,0 +1,107 @@
+EXPERIMENT NO: 2.3	-PL/SQL PROGRAMS – TRIGGER
+
+1. Create a trigger to handle updates to the customer table.
+
+mysql> delimiter //
+mysql> create table cust(id int,name varchar(25),address varchar(25),city varchar(25),ph_no bigint);//
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> create trigger updates
+    -> before update
+    -> on customer for each row
+    -> begin
+    -> insert into cust
+    -> values(old.id,old.name,old.address,old.city,old.ph_no);
+    -> end
+    -> //
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select * from customer;//
++-----+---------+----------------------+----------------+------------+
+| id  | name    | address              | city           | ph_no      |
++-----+---------+----------------------+----------------+------------+
+| 100 | Hari    | Kurupputhodyil House | Mannarkkad     | 9025487910 |
+| 101 | Karthik | Kannanthodi House    | Perinthalmanna |       NULL |
+| 102 | Vyshnav | Karthika House       | Malappuram     | 9539963457 |
+| 103 | Maanas  | Villa House          | Kozhikode      |       NULL |
+| 104 | Minhaj  | Vallyaveetil House   | Malappuram     |       NULL |
+| 105 | Minhaj  | Dreams House         | Malappuram     | 8086909478 |
+| 106 | Aswin   | Aswin House          | Wayanad        | 7854328521 |
++-----+---------+----------------------+----------------+------------+
+7 rows in set (0.01 sec)
+
+mysql> update customer set city="Kozhikode" where id=106;
+    -> //
+Query OK, 0 rows affected (0.07 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from cust;
+    -> //
++------+-------+-------------+---------+------------+
+| id   | name  | address     | city    | ph_no      |
++------+-------+-------------+---------+------------+
+|  106 | Aswin | Aswin House | Wayanad | 7854328521 |
++------+-------+-------------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer;//
++-----+---------+----------------------+----------------+------------+
+| id  | name    | address              | city           | ph_no      |
++-----+---------+----------------------+----------------+------------+
+| 100 | Hari    | Kurupputhodyil House | Mannarkkad     | 9025487910 |
+| 101 | Karthik | Kannanthodi House    | Perinthalmanna |       NULL |
+| 102 | Vyshnav | Karthika House       | Malappuram     | 9539963457 |
+| 103 | Maanas  | Villa House          | Kozhikode      |       NULL |
+| 104 | Minhaj  | Vallyaveetil House   | Malappuram     |       NULL |
+| 105 | Minhaj  | Dreams House         | Malappuram     | 8086909478 |
+| 106 | Aswin   | Aswin House          | Kozhikode      | 7854328521 |
++-----+---------+----------------------+----------------+------------+
+7 rows in set (0.00 sec)
+
+*********************************************************************************************************************************************************
+
+2. Create a trigger to handle inserts to the product relation ( if price < 5 the set price to 10).
+
+mysql> create trigger product_price
+    -> before insert
+    -> on product
+    -> for each row
+    -> begin
+    -> if  new.price < 5 then
+    -> set new.price=10;
+    -> end if;
+    -> end//
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into product values(506,'Candy',3);
+    -> //
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from product;
+    -> //
++-----+----------------------+-------+
+| pid | pname                | price |
++-----+----------------------+-------+
+| 301 | DARK CHOCALATE       |     6 |
+| 323 | PINPOINT PEN         |    15 |
+| 332 | KABSA KIT            |   155 |
+| 335 | BASUMATHI RISE       |    95 |
+| 339 | AASHIRVAD AATTA 1KG  |    85 |
+| 432 | DIARYMILK SILK       |   140 |
+| 447 | LAYS CHIPS           |    10 |
+| 456 | 7UP 1 LTR            |    95 |
+| 467 | DINNER SET           |  1004 |
+| 487 | ONION                |   104 |
+| 506 | Candy                |    10 |
+| 643 | FOG BODYSPRAY        |   255 |
+| 743 | CHILLY POWDER        |   150 |
+| 987 | COCONUT OIL 1 LTR    |   185 |
++-----+----------------------+-------+
+14 rows in set (0.00 sec)
+
+
+//completed
+
+
+
+
