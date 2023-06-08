@@ -1,0 +1,50 @@
+Assignment 4 - NoSQL- Retrieving data
+
+1) Write a MongoDB query to display the customer documents having city ‘ekm’,’tvm’. 
+
+> db.Customer.find({$or:[{"city":"Ernamkulam"},{"city":"Trivandrum"}]}).pretty();
+{
+	"_id" : ObjectId("6480593b7f117f705ce79ae0"),
+	"name" : "Hari",
+	"city" : "Trivandrum",
+	"ph_no" : "984712200",
+	"age" : "21"
+}
+{
+	"_id" : ObjectId("6480593b7f117f705ce79ae1"),
+	"name" : "Kichu",
+	"city" : "Ernamkulam",
+	"ph_no" : "80874712254",
+	"age" : "22"
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+2) Write a MongoDB query to display all customer documents who have age >21.
+
+> db.Customer.find({"age":{$gt:'21'}}).pretty();
+{
+	"_id" : ObjectId("6480593b7f117f705ce79ae1"),
+	"name" : "Kichu",
+	"city" : "Ernamkulam",
+	"ph_no" : "80874712254",
+	"age" : "22"
+}
+{
+	"_id" : ObjectId("6480593b7f117f705ce79ae2"),
+	"name" : "vysh",
+	"city" : "Kochi",
+	"ph_no" : "7322712457",
+	"age" : "22"
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+3)Write a MongoDB query to find customer documents who not live in ‘tvm’.
+
+> db.customer.find({"city":{$ne:"Trivandrum"}})
+{ "_id" : ObjectId("648057e37f117f705ce79ada"), "name" : "Kichu", "city" : "Ernamkulam", "ph_no" : "80874712254", "age" : "22" }
+{ "_id" : ObjectId("648057e37f117f705ce79adb"), "name" : "vysh", "city" : "Kochi", "ph_no" : "7322712457", "age" : "22" }
+> 
+
+//completed
